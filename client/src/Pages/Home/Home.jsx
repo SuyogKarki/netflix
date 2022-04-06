@@ -15,7 +15,7 @@ const Home = ({ type }) => {
       try {
         const res = await axiosInstance.get(`lists${type ? '?type=' + type : ''}${genre ? '&genre=' + genre : ''}`, {
           headers: {
-            token: `Bearer ${user.stsTokenManager.accessToken}`,
+            token: `Bearer ${user.accessToken}`,
           },
         });
         setLists(res.data);

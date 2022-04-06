@@ -13,7 +13,7 @@ const Featured = ({ type, setGenre }) => {
       try {
         const res = await axiosInstance.get('/movies/find/random?type=' + type, {
           headers: {
-            token: `Bearer ${user.stsTokenManager.accessToken}`,
+            token: `Bearer ${user.accessToken}`,
           },
         });
         setContent(res.data[0]);
