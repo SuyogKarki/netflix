@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../authContext/AuthContext';
+import { useEffect, useState } from 'react';
 import { Navbar, Featured, List } from '../../components';
 import { axiosInstance } from '../../config';
 import './Home.scss';
@@ -8,15 +7,12 @@ const Home = ({ type }) => {
   const [lists, setLists] = useState([]);
   const [genre, setGenre] = useState(null);
 
-  const { user } = useContext(AuthContext);
   useEffect(() => {
     const getRandomLists = async () => {
       console.log(`lists${type ? '?type=' + type : ''}${genre ? '&genre=' + genre : ''}`);
       try {
         const res = await axiosInstance.get(`lists${type ? '?type=' + type : ''}${genre ? '&genre=' + genre : ''}`, {
-          headers: {
-            token: `Bearer ${user.accessToken}`,
-          },
+          headers: { token: `Bearer ${JSON.parse(localStorage.getItem('user')).accessToken}` },
         });
         setLists(res.data);
       } catch (err) {

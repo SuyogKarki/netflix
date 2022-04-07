@@ -1,21 +1,15 @@
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import './Featured.scss';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { axiosInstance } from '../../config';
-import { AuthContext } from '../../authContext/AuthContext';
 
 const Featured = ({ type, setGenre }) => {
-  const { user } = useContext(AuthContext);
   const [content, setContent] = useState({});
   useEffect(() => {
     const getRandomContent = async () => {
       try {
-        const res = await axiosInstance.get('/movies/find/random?type=' + type, {
-          headers: {
-            token: `Bearer ${user.accessToken}`,
-          },
-        });
+        const res = await axiosInstance.get('/movies/find/random?type=' + type, { headers: { token: `Bearer ${JSON.parse(localStorage.getItem('user')).accessToken}` } });
         setContent(res.data[0]);
       } catch (err) {
         console.log(err);
