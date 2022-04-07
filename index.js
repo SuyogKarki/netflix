@@ -20,8 +20,6 @@ mongoose
   .then(() => console.log('Connection to MongoDB successful'))
   .catch(err => console.log(err));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(
   cors({
     origin: '*',
